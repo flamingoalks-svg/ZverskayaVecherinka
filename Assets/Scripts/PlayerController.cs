@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public float cameraYawOffset = 0f;
     [HideInInspector] public bool isFlying = false;
+    [HideInInspector] public Camera playerCamera; // Устанавливается DynamicCamera в split-screen
 
     private Rigidbody rb;
     private Animator animator;
@@ -136,7 +137,20 @@ public class PlayerController : MonoBehaviour
         bool runH = Input.GetKey(keyRun);
         bool spinP = Input.GetKeyDown(keySpin);
 
-        moveDirection = new Vector3(h, 0, v).normalized;
+        // Движение относительно камеры игрока (для корректной работы в split-screen)
+        Vector3 rawInput = new Vector3(h, 0, v);
+        if (rawInput.magnitude > 0.1f && playerCamera != null)
+        {
+            Vector3 camFwd = playerCamera.transform.forward; camFwd.y = 0;
+            if (camFwd.magnitude < 0.01f) camFwd = Vector3.forward;
+            camFwd.Normalize();
+            Vector3 camRight = playerCamera.transform.right; camRight.y = 0; camRight.Normalize();
+            moveDirection = (camFwd * v + camRight * h).normalized;
+        }
+        else
+        {
+            moveDirection = rawInput.normalized;
+        }
         isRunning = runH && moveDirection.magnitude > 0.1f;
 
         if (moveDirection.magnitude > 0.1f)

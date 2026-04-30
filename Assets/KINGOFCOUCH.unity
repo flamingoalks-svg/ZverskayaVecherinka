@@ -1904,6 +1904,7 @@ MonoBehaviour:
   cameraRotateSpeed: 120
   cameraYawOffset: 0
   isFlying: 0
+  playerCamera: {fileID: 0}
 --- !u!114 &505275298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1922,6 +1923,7 @@ MonoBehaviour:
   - Floor
   - "\u041F\u043E\u043B"
   - Ground
+  spawnImmunityDuration: 1.5
 --- !u!1001 &507614209
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2292,6 +2294,7 @@ MonoBehaviour:
   cameraRotateSpeed: 120
   cameraYawOffset: 0
   isFlying: 0
+  playerCamera: {fileID: 0}
 --- !u!114 &574451950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2310,6 +2313,7 @@ MonoBehaviour:
   - Floor
   - "\u041F\u043E\u043B"
   - Ground
+  spawnImmunityDuration: 1.5
 --- !u!1001 &586452926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2939,8 +2943,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238a8c221e64bc04fb606d10667708e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpSpawner
-  maxPowerUps: 30
-  spawnInterval: 3
+  maxPowerUps: 50
+  spawnInterval: 2
   floatHeight: 0.4
   excludeNames:
   - Plane
@@ -3904,6 +3908,7 @@ MonoBehaviour:
   cameraRotateSpeed: 120
   cameraYawOffset: 0
   isFlying: 0
+  playerCamera: {fileID: 0}
 --- !u!114 &1208289525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3922,6 +3927,7 @@ MonoBehaviour:
   - Floor
   - "\u041F\u043E\u043B"
   - Ground
+  spawnImmunityDuration: 1.5
 --- !u!54 &1208289528
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4561,6 +4567,7 @@ MonoBehaviour:
   cameraRotateSpeed: 120
   cameraYawOffset: 0
   isFlying: 0
+  playerCamera: {fileID: 0}
 --- !u!114 &1435927556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4579,6 +4586,7 @@ MonoBehaviour:
   - Floor
   - "\u041F\u043E\u043B"
   - Ground
+  spawnImmunityDuration: 1.5
 --- !u!1001 &1453414416
 PrefabInstance:
   m_ObjectHideFlags: 0

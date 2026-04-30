@@ -31,7 +31,6 @@ public class DynamicCamera : MonoBehaviour
     private bool isSplitMode = false;
     private Vector3[] lastFwd;
     private float mouseYaw = 0f, mousePitch = 40f, zoomOffset = 0f;
-    private float[] splitCameraYawOffsets = new float[4];  
 
     void Start()
     {
@@ -98,9 +97,26 @@ public class DynamicCamera : MonoBehaviour
         cam.transform.rotation = Quaternion.Slerp(cam.transform.rotation, Quaternion.LookRotation(lt - cam.transform.position), rotationSmooth * Time.deltaTime);
     }
 
-    void UpdateSplitCams(List<PlayerController> alive) { for (int i = 0; i < alive.Count && i < splitCameras.Length; i++) { if (splitCameras[i] != null) FollowBehind(splitCameras[i], alive[i], i); } }
+    void UpdateSplitCams(List<PlayerController> alive)
+    {
+        for (int i = 0; i < alive.Count && i < splitCameras.Length; i++)
+        {
+            if (splitCameras[i] != null)
+            {
+                FollowBehind(splitCameras[i], alive[i], i);
+                // Назначаем каждому игроку его личную камеру для camera-relative движения
+                alive[i].playerCamera = splitCameras[i];
+            }
+        }
+    }
 
-    void SetSingle() { isSplitMode = false; mainCam.rect = new Rect(0, 0, 1, 1); mainCam.enabled = true; for (int i = 1; i < splitCameras.Length; i++) if (splitCameras[i] != null) splitCameras[i].enabled = false; }
+    void SetSingle()
+    {
+        isSplitMode = false; mainCam.rect = new Rect(0, 0, 1, 1); mainCam.enabled = true;
+        for (int i = 1; i < splitCameras.Length; i++) if (splitCameras[i] != null) splitCameras[i].enabled = false;
+        // В режиме общей камеры все игроки используют основную камеру
+        if (players != null) foreach (var p in players) if (p != null) p.playerCamera = mainCam;
+    }
 
     void SetSplit(List<PlayerController> alive)
     {
